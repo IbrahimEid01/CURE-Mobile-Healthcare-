@@ -41,15 +41,21 @@ class _TopBar extends StatelessWidget {
         border: Border(bottom: BorderSide(color: Color(0xFFD8E3FA))),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CircleAvatar(
-            radius: 20,
-            backgroundColor: const Color(0xFFE2EEFF),
-            child: Text(
-              avatarLabel,
-              style: const TextStyle(color: Color(0xFF00408B), fontWeight: FontWeight.w800),
+          const Icon(Icons.location_on_rounded, color: Color(0xFF00408B)),
+          const SizedBox(width: 10),
+          Text(
+            location,
+            textAlign: TextAlign.end,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFF424752),
+              height: 1.2,
             ),
           ),
+
           const Spacer(),
           const Text(
             'CURE',
@@ -64,18 +70,17 @@ class _TopBar extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                location,
-                textAlign: TextAlign.end,
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF424752),
-                  height: 1.2,
+              CircleAvatar(
+                radius: 20,
+                backgroundColor: const Color(0xFFE2EEFF),
+                child: Text(
+                  avatarLabel,
+                  style: const TextStyle(
+                    color: Color(0xFF00408B),
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
-              const SizedBox(width: 8),
-              const Icon(Icons.location_on_rounded, color: Color(0xFF00408B)),
             ],
           ),
         ],
@@ -86,9 +91,8 @@ class _TopBar extends StatelessWidget {
 
 class SectionHeader extends StatelessWidget {
   final String title;
-  final String actionText;
 
-  const SectionHeader({super.key, required this.title, required this.actionText});
+  const SectionHeader({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -96,12 +100,11 @@ class SectionHeader extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w800, color: Color(0xFF00408B)),
-        ),
-        const Spacer(),
-        TextButton(
-          onPressed: () {},
-          child: Text(actionText),
+          style: const TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.w800,
+            color: Color(0xFF00408B),
+          ),
         ),
       ],
     );
@@ -129,39 +132,41 @@ class CureHeroBanner extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF8DB0D8),
-            Color(0xFF00408B),
-          ],
+          colors: [Color(0xFF8DB0D8), Color(0xFF00408B)],
         ),
         boxShadow: const [
-          BoxShadow(color: Color(0x2000408B), blurRadius: 24, offset: Offset(0, 10)),
+          BoxShadow(
+            color: Color(0x2000408B),
+            blurRadius: 24,
+            offset: Offset(0, 10),
+          ),
         ],
       ),
       child: Stack(
         fit: StackFit.expand,
         children: [
           Positioned(
-            left: -16,
-            top: -24,
+            right: -26,
+            bottom: -34,
             child: Container(
               width: 150,
               height: 150,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white.withOpacity(.10),
+                color: Colors.white.withValues(alpha: .10),
               ),
             ),
           ),
           Positioned(
-            right: -26,
-            bottom: -34,
+            left: -16,
+            top: -24,
+
             child: Container(
               width: 170,
               height: 170,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white.withOpacity(.08),
+                color: Colors.white.withValues(alpha: .08),
               ),
             ),
           ),
@@ -172,13 +177,16 @@ class CureHeroBanner extends StatelessWidget {
               children: [
                 _AccentPill(label: accentLabel),
                 const Spacer(),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 26,
-                    height: 1.25,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      height: 1.25,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -187,7 +195,7 @@ class CureHeroBanner extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     height: 1.6,
-                    color: Colors.white.withOpacity(.95),
+                    color: Colors.white.withValues(alpha: .95),
                   ),
                 ),
               ],
@@ -209,12 +217,16 @@ class _AccentPill extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(.16),
+        color: Colors.white.withValues(alpha: .16),
         borderRadius: BorderRadius.circular(999),
       ),
       child: Text(
         label,
-        style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700),
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }
@@ -239,7 +251,10 @@ class CureStatsRow extends StatelessWidget {
             (stat) => Expanded(
               child: Container(
                 margin: const EdgeInsetsDirectional.only(end: 10),
-                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 10,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFE2EEFF),
                   borderRadius: BorderRadius.circular(18),
@@ -323,26 +338,35 @@ class CureInfoPanel extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          ...items.map((item) => Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('•', style: TextStyle(fontSize: 20, height: 1.1, color: Color(0xFFBA1A1A))),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        item,
-                        style: const TextStyle(
-                          fontSize: 15,
-                          height: 1.65,
-                          color: Color(0xFF424752),
-                        ),
+          ...items.map(
+            (item) => Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    '-',
+                    style: TextStyle(
+                      fontSize: 20,
+                      height: 1.1,
+                      color: Color(0xFFBA1A1A),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      item,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        height: 1.65,
+                        color: Color(0xFF424752),
                       ),
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -378,18 +402,22 @@ class CureFeatureGrid extends StatelessWidget {
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: 12,
             mainAxisSpacing: 12,
-            childAspectRatio: 1.05,
+            childAspectRatio: 0.9,
           ),
           itemBuilder: (context, index) {
             final item = items[index];
             return Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(18),
                 border: Border.all(color: const Color(0xFFD8E3FA)),
                 boxShadow: const [
-                  BoxShadow(color: Color(0x1000408B), blurRadius: 10, offset: Offset(0, 4)),
+                  BoxShadow(
+                    color: Color(0x1000408B),
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
+                  ),
                 ],
               ),
               child: Column(
@@ -397,20 +425,29 @@ class CureFeatureGrid extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 22,
-                    backgroundColor: const Color(0xFF7CEDFF).withOpacity(.5),
+                    backgroundColor: const Color(
+                      0xFF7CEDFF,
+                    ).withValues(alpha: .5),
                     child: Icon(item.icon, color: const Color(0xFF006874)),
                   ),
                   const SizedBox(height: 10),
                   Text(
                     item.title,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Color(0xFF111C2C)),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
+                      color: Color(0xFF111C2C),
+                    ),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 4),
                   Text(
                     item.description,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 13, height: 1.5, color: Color(0xFF424752)),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFF424752),
+                    ),
                   ),
                 ],
               ),
@@ -446,31 +483,54 @@ class CureTrustCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF00408B))),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF00408B),
+            ),
+          ),
           const SizedBox(height: 6),
-          Text(subtitle, style: const TextStyle(fontSize: 14, height: 1.55, color: Color(0xFF424752))),
+          Text(
+            subtitle,
+            style: const TextStyle(
+              fontSize: 14,
+              height: 1.55,
+              color: Color(0xFF424752),
+            ),
+          ),
           const SizedBox(height: 14),
-          ...bullets.map((e) => Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 7),
-                      width: 7,
-                      height: 7,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF006874),
-                        shape: BoxShape.circle,
+          ...bullets.map(
+            (e) => Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 7),
+                    width: 7,
+                    height: 7,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF006874),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      e,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        height: 1.55,
+                        color: Color(0xFF424752),
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(e, style: const TextStyle(fontSize: 14, height: 1.55, color: Color(0xFF424752))),
-                    ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -579,7 +639,7 @@ class CureServiceGrid extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
-        childAspectRatio: 0.93,
+        childAspectRatio: 0.85,
       ),
       itemBuilder: (context, index) {
         final item = items[index];
@@ -591,22 +651,30 @@ class CureServiceGrid extends StatelessWidget {
             border: Border.all(color: const Color(0xFFD8E3FA)),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CircleAvatar(
                 radius: 24,
-                backgroundColor: const Color(0xFF7CEDFF).withOpacity(.55),
+                backgroundColor: const Color(0xFF7CEDFF).withValues(alpha: .55),
                 child: Icon(item.icon, color: const Color(0xFF006874)),
               ),
               const Spacer(),
               Text(
                 item.title,
-                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Color(0xFF111C2C)),
+                style: const TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w800,
+                  color: Color(0xFF111C2C),
+                ),
               ),
               const SizedBox(height: 6),
               Text(
                 item.description,
-                style: const TextStyle(fontSize: 13, height: 1.45, color: Color(0xFF424752)),
+                style: const TextStyle(
+                  fontSize: 13,
+                  height: 1.45,
+                  color: Color(0xFF424752),
+                ),
               ),
             ],
           ),
@@ -657,9 +725,22 @@ class CureHighlightCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text(subtitle, style: const TextStyle(fontSize: 13, height: 1.5, color: Color(0xFF424752))),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    height: 1.5,
+                    color: Color(0xFF424752),
+                  ),
+                ),
                 const SizedBox(height: 12),
                 Wrap(
                   spacing: 10,
@@ -668,10 +749,10 @@ class CureHighlightCard extends StatelessWidget {
                     _PillButton(label: actionText, primary: true),
                     _PillButton(label: secondaryActionText, primary: false),
                   ],
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -767,9 +848,23 @@ class CureStepTimeline extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(step.title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF00408B))),
+                      Text(
+                        step.title,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800,
+                          color: Color(0xFF00408B),
+                        ),
+                      ),
                       const SizedBox(height: 8),
-                      Text(step.description, style: const TextStyle(fontSize: 14, height: 1.55, color: Color(0xFF424752))),
+                      Text(
+                        step.description,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          height: 1.55,
+                          color: Color(0xFF424752),
+                        ),
+                      ),
                       if (step.chipLabels.isNotEmpty) ...[
                         const SizedBox(height: 12),
                         Wrap(
@@ -791,7 +886,11 @@ class CureStepTimeline extends StatelessWidget {
                               colors: [Color(0xFFCFE8FF), Color(0xFF7CEDFF)],
                             ),
                           ),
-                          child: const Icon(Icons.place_rounded, color: Color(0xFF00408B), size: 42),
+                          child: const Icon(
+                            Icons.place_rounded,
+                            color: Color(0xFF00408B),
+                            size: 42,
+                          ),
                         ),
                       ],
                       if (step.progressLabel != null) ...[
@@ -811,12 +910,20 @@ class CureStepTimeline extends StatelessWidget {
                                     minHeight: 8,
                                     value: 0.66,
                                     backgroundColor: Color(0xFFC9DCF7),
-                                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00408B)),
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Color(0xFF00408B),
+                                    ),
                                   ),
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              Text(step.progressLabel!, style: const TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF006874))),
+                              Text(
+                                step.progressLabel!,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF006874),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -824,12 +931,18 @@ class CureStepTimeline extends StatelessWidget {
                       if (step.ratingStars > 0) ...[
                         const SizedBox(height: 12),
                         Row(
-                          children: List.generate(step.ratingStars, (i) => const Padding(
-                            padding: EdgeInsetsDirectional.only(end: 4),
-                            child: Icon(Icons.star_border_rounded, color: Color(0xFF006874)),
-                          )),
+                          children: List.generate(
+                            step.ratingStars,
+                            (i) => const Padding(
+                              padding: EdgeInsetsDirectional.only(end: 4),
+                              child: Icon(
+                                Icons.star_border_rounded,
+                                color: Color(0xFF006874),
+                              ),
+                            ),
+                          ),
                         ),
-                      ]
+                      ],
                     ],
                   ),
                 ),
@@ -866,7 +979,7 @@ class CureBenefitsList extends StatelessWidget {
                     width: 52,
                     height: 52,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF7CEDFF).withOpacity(.55),
+                      color: const Color(0xFF7CEDFF).withValues(alpha: .55),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(item.icon, color: const Color(0xFF006874)),
@@ -876,9 +989,22 @@ class CureBenefitsList extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(item.title, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800)),
+                        Text(
+                          item.title,
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
                         const SizedBox(height: 6),
-                        Text(item.description, style: const TextStyle(fontSize: 13, height: 1.5, color: Color(0xFF424752))),
+                        Text(
+                          item.description,
+                          style: const TextStyle(
+                            fontSize: 13,
+                            height: 1.5,
+                            color: Color(0xFF424752),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -895,7 +1021,11 @@ class CureBenefitItem {
   final String title;
   final String description;
   final IconData icon;
-  const CureBenefitItem({required this.title, required this.description, required this.icon});
+  const CureBenefitItem({
+    required this.title,
+    required this.description,
+    required this.icon,
+  });
 }
 
 class CureImpactCard extends StatelessWidget {
@@ -915,26 +1045,48 @@ class CureImpactCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w800, color: Color(0xFF00408B))),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 19,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF00408B),
+            ),
+          ),
           const SizedBox(height: 14),
-          ...items.map((e) => Container(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: const BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Color(0xFFC9DCF7))),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      child: Text(e.value, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: Color(0xFF00408B))),
+          ...items.map(
+            (e) => Container(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              decoration: const BoxDecoration(
+                border: Border(bottom: BorderSide(color: Color(0xFFC9DCF7))),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 80,
+                    child: Text(
+                      e.value,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                        color: Color(0xFF00408B),
+                      ),
                     ),
-                    const SizedBox(width: 14),
-                    Expanded(
-                      child: Text(e.label, style: const TextStyle(fontSize: 14, color: Color(0xFF424752))),
+                  ),
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Text(
+                      e.label,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFF424752),
+                      ),
                     ),
-                  ],
-                ),
-              )),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -951,12 +1103,14 @@ class CureRoleSwitcher extends StatelessWidget {
   final String patientLabel;
   final String nurseLabel;
   final bool selectedPatient;
+  final ValueChanged<bool> onChanged;
 
   const CureRoleSwitcher({
     super.key,
     required this.patientLabel,
     required this.nurseLabel,
     required this.selectedPatient,
+    required this.onChanged,
   });
 
   @override
@@ -970,36 +1124,52 @@ class CureRoleSwitcher extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              decoration: BoxDecoration(
-                color: selectedPatient ? const Color(0xFF00408B) : Colors.transparent,
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Text(
-                patientLabel,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: selectedPatient ? Colors.white : const Color(0xFF424752),
-                  fontWeight: FontWeight.w800,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(14),
+              onTap: () => onChanged(true),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                decoration: BoxDecoration(
+                  color: selectedPatient
+                      ? const Color(0xFF00408B)
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Text(
+                  patientLabel,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: selectedPatient
+                        ? Colors.white
+                        : const Color(0xFF424752),
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ),
           ),
           const SizedBox(width: 6),
           Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              decoration: BoxDecoration(
-                color: !selectedPatient ? const Color(0xFF00408B) : Colors.transparent,
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Text(
-                nurseLabel,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: !selectedPatient ? Colors.white : const Color(0xFF424752),
-                  fontWeight: FontWeight.w800,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(14),
+              onTap: () => onChanged(false),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                decoration: BoxDecoration(
+                  color: !selectedPatient
+                      ? const Color(0xFF00408B)
+                      : Colors.transparent,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Text(
+                  nurseLabel,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: !selectedPatient
+                        ? Colors.white
+                        : const Color(0xFF424752),
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ),
@@ -1013,9 +1183,11 @@ class CureRoleSwitcher extends StatelessWidget {
 class CureAuthCard extends StatelessWidget {
   final String title;
   final String subtitle;
-  final List<String> fields;
+  final List<Widget> fields;
   final String primaryAction;
   final String secondaryAction;
+  final VoidCallback onPrimaryAction;
+  final VoidCallback onSecondaryAction;
 
   const CureAuthCard({
     super.key,
@@ -1024,6 +1196,8 @@ class CureAuthCard extends StatelessWidget {
     required this.fields,
     required this.primaryAction,
     required this.secondaryAction,
+    required this.onPrimaryAction,
+    required this.onSecondaryAction,
   });
 
   @override
@@ -1033,13 +1207,10 @@ class CureAuthCard extends StatelessWidget {
       subtitle: subtitle,
       child: Column(
         children: [
-          ...fields.map((e) => Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: _InputMock(label: e),
-              )),
-          PrimaryButton(text: primaryAction, onPressed: () {}),
+          ...fields,
+          PrimaryButton(text: primaryAction, onPressed: onPrimaryAction),
           const SizedBox(height: 10),
-          OutlineButton(text: secondaryAction, onPressed: () {}),
+          OutlineButton(text: secondaryAction, onPressed: onSecondaryAction),
         ],
       ),
     );
@@ -1049,8 +1220,9 @@ class CureAuthCard extends StatelessWidget {
 class CureJoinCard extends StatelessWidget {
   final String title;
   final String subtitle;
-  final List<String> fields;
+  final List<Widget> fields;
   final String primaryAction;
+  final VoidCallback onPrimaryPressed;
 
   const CureJoinCard({
     super.key,
@@ -1058,6 +1230,7 @@ class CureJoinCard extends StatelessWidget {
     required this.subtitle,
     required this.fields,
     required this.primaryAction,
+    required this.onPrimaryPressed,
   });
 
   @override
@@ -1067,12 +1240,63 @@ class CureJoinCard extends StatelessWidget {
       subtitle: subtitle,
       child: Column(
         children: [
-          ...fields.map((e) => Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: _InputMock(label: e),
-              )),
-          PrimaryButton(text: primaryAction, onPressed: () {}),
+          ...fields,
+          PrimaryButton(text: primaryAction, onPressed:onPrimaryPressed),
         ],
+      ),
+    );
+  }
+}
+
+class CureTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final String hintText;
+  final bool obscureText;
+  final TextInputType keyboardType;
+
+  const CureTextField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    this.obscureText = false,
+    this.keyboardType = TextInputType.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: TextFormField(
+        controller: controller,
+        obscureText: obscureText,
+        keyboardType: keyboardType,
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return 'هذا الحقل مطلوب';
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          hintText: hintText,
+          filled: true,
+          fillColor: const Color(0xFFF9F9FF),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 14,
+            vertical: 16,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Color(0xFFD8E3FA)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Color(0xFFD8E3FA)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Color(0xFF00408B), width: 1.5),
+          ),
+        ),
       ),
     );
   }
@@ -1103,16 +1327,31 @@ class CureContactCard extends StatelessWidget {
                         color: const Color(0xFFE2EEFF),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Icon(Icons.contact_mail_rounded, color: Color(0xFF00408B)),
+                      child: const Icon(
+                        Icons.contact_mail_rounded,
+                        color: Color(0xFF00408B),
+                      ),
                     ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(item.label, style: const TextStyle(fontSize: 12, color: Color(0xFF727784))),
+                          Text(
+                            item.label,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF727784),
+                            ),
+                          ),
                           const SizedBox(height: 4),
-                          Text(item.value, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
+                          Text(
+                            item.value,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -1137,7 +1376,11 @@ class _CardSection extends StatelessWidget {
   final String subtitle;
   final Widget child;
 
-  const _CardSection({required this.title, required this.subtitle, required this.child});
+  const _CardSection({
+    required this.title,
+    required this.subtitle,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -1151,9 +1394,23 @@ class _CardSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF00408B))),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF00408B),
+            ),
+          ),
           const SizedBox(height: 6),
-          Text(subtitle, style: const TextStyle(fontSize: 13, height: 1.5, color: Color(0xFF424752))),
+          Text(
+            subtitle,
+            style: const TextStyle(
+              fontSize: 13,
+              height: 1.5,
+              color: Color(0xFF424752),
+            ),
+          ),
           const SizedBox(height: 16),
           child,
         ],
@@ -1181,7 +1438,10 @@ class _InputMock extends StatelessWidget {
         children: [
           const Icon(Icons.edit_outlined, size: 18, color: Color(0xFF727784)),
           const SizedBox(width: 10),
-          Text(label, style: const TextStyle(color: Color(0xFF727784), fontSize: 14)),
+          Text(
+            label,
+            style: const TextStyle(color: Color(0xFF727784), fontSize: 14),
+          ),
         ],
       ),
     );
@@ -1205,9 +1465,14 @@ class PrimaryButton extends StatelessWidget {
           backgroundColor: const Color(0xFF00408B),
           foregroundColor: Colors.white,
           elevation: 0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
         ),
-        child: Text(text, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+        child: Text(
+          text,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+        ),
       ),
     );
   }
@@ -1229,9 +1494,14 @@ class OutlineButton extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           foregroundColor: const Color(0xFF00408B),
           side: const BorderSide(color: Color(0xFF00408B), width: 1.5),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
         ),
-        child: Text(text, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800)),
+        child: Text(
+          text,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+        ),
       ),
     );
   }

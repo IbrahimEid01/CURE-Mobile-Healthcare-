@@ -1,13 +1,15 @@
 import 'package:cure_app_3/widget/widget.dart';
 import 'package:flutter/material.dart';
-import 'package:cure_app_3/main.dart';
 
 class HowToWorkPage extends StatelessWidget {
   const HowToWorkPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return  CurePageScaffold(
+      location: 'الفيوم، مصر',
+      avatarLabel: 'P',
+      body:ListView(
         padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
         children: [
           const SizedBox(height: 8),
@@ -60,7 +62,7 @@ class HowToWorkPage extends StatelessWidget {
             text: 'ابدأ الآن',
             onPressed: () {},
           ),
-        ],
+        ],),
       
     );
   }

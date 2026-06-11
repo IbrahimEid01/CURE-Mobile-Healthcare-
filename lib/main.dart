@@ -157,7 +157,15 @@ import 'screen/why_cuer_healthcare_page.dart';
 //   }
 // }
 
-void main() {
+
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );  
   runApp(const CureApp());
 }
 
@@ -190,13 +198,13 @@ class CureApp extends StatelessWidget {
         );
       },
       home: const CureShell(),
-    );
+    );                       
   }
 }
 
 class CureShell extends StatefulWidget {
   const CureShell({super.key});
-
+                                                       
   @override
   State<CureShell> createState() => _CureShellState();
 }
@@ -249,7 +257,7 @@ class _CureShellState extends State<CureShell> {
                       ),
                       decoration: BoxDecoration(
                         color: selected
-                            ? const Color(0xFF7CEDFF).withOpacity(.55)
+                            ? const Color(0xFF7CEDFF).withValues(alpha: .55)
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(18),
                       ),

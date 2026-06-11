@@ -7,7 +7,10 @@ class WhyCureHealthcarePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: ListView(
+        child: CurePageScaffold(
+      location: 'الفيوم، مصر',
+      avatarLabel: 'P',
+      body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
         children: [
           const SizedBox(height: 8),
@@ -75,6 +78,7 @@ class WhyCureHealthcarePage extends StatelessWidget {
             onPressed: () {},
           ),
         ],
+      ),
         )
     );
   }
