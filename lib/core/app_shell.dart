@@ -1,3 +1,4 @@
+import 'package:cure_app_3/widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,43 +17,8 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey[200],
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          "CURE",
-          style: TextStyle(
-            color: Color(0xff0B4A8B),
-            fontWeight: FontWeight.bold,
-            fontSize: 26,
-          ),
-        ),
-
-        leading: Container(
-          margin: const EdgeInsets.only(left: 15),
-          child: CircleAvatar(
-            backgroundColor: Colors.grey[100],
-            radius: 15,
-            child: Icon(Icons.person, color: Color(0xff0B4A8B), size: 40),
-          ),
-        ),
-
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 15),
-            child: Row(
-              children: const [
-                Text("الفيوم، مصر", style: TextStyle(color: Colors.black87)),
-                SizedBox(width: 5),
-                Icon(Icons.location_on_outlined, color: Color(0xff0B4A8B)),
-              ],
-            ),
-          ),
-        ],
-      ),
-
-      body: navigationShell,
+      body:
+     navigationShell,
       bottomNavigationBar: NavigationBar(
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: (index) => navigationShell.goBranch(index),
@@ -86,6 +52,45 @@ class AppShell extends StatelessWidget {
           ),
         ],
       ),
+      
     );
   }
 }
+  // 
+      // 
+      // AppBar(
+        
+      //   backgroundColor: Colors.grey[200],
+      //   elevation: 0,
+      //   centerTitle: true,
+      //   title: const Text(
+      //     "CURE",
+      //     style: TextStyle(
+      //       color: Color(0xff0B4A8B),
+      //       fontWeight: FontWeight.bold,
+      //       fontSize: 26,
+      //     ),
+      //   ),
+
+      //   leading: Container(
+      //     margin: const EdgeInsets.only(left: 15),
+      //     child: CircleAvatar(
+      //       backgroundColor: Colors.grey[100],
+      //       radius: 15,
+      //       child: Icon(Icons.person, color: Color(0xff0B4A8B), size: 40),
+      //     ),
+      //   ),
+
+      //   actions: [
+      //     Padding(
+      //       padding: EdgeInsets.only(right: 15),
+      //       child: Row(
+      //         children: const [
+      //           Text("الفيوم، مصر", style: TextStyle(color: Colors.black87)),
+      //           SizedBox(width: 5),
+      //           Icon(Icons.location_on_outlined, color: Color(0xff0B4A8B)),
+      //         ],
+      //       ),
+      //     ),
+      //   ],
+      // ),

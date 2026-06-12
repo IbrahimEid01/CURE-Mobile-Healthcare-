@@ -10,6 +10,7 @@ class CurePageScaffold extends StatelessWidget {
     required this.location,
     required this.avatarLabel,
     required this.body,
+    //  required NavigationBar bottomNavigationBar,
   });
 
   @override
@@ -639,7 +640,7 @@ class CureServiceGrid extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 12,
-        childAspectRatio: 0.85,
+        childAspectRatio: 1.1,
       ),
       itemBuilder: (context, index) {
         final item = items[index];
@@ -1241,7 +1242,7 @@ class CureJoinCard extends StatelessWidget {
       child: Column(
         children: [
           ...fields,
-          PrimaryButton(text: primaryAction, onPressed:onPrimaryPressed),
+          PrimaryButton(text: primaryAction, onPressed: onPrimaryPressed),
         ],
       ),
     );

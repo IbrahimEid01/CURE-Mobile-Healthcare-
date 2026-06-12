@@ -1,16 +1,17 @@
 import 'package:cure_app_3/core/app_shell.dart';
 import 'package:cure_app_3/screen/account_page.dart';
+import 'package:cure_app_3/screen/home_page.dart';
+import 'package:cure_app_3/screen/how_to_work_page.dart';
+import 'package:cure_app_3/screen/services_page.dart';
+import 'package:cure_app_3/screen/why_cuer_healthcare_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../screen/home_page.dart';
-import '../screen/how_to_work_page.dart';
-import '../screen/services_page.dart';
-import '../screen/why_cuer_healthcare_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
+  initialLocation: '/',
   routes: [
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
@@ -19,10 +20,12 @@ final appRouter = GoRouter(
       branches: [
         StatefulShellBranch(
           routes: [
-            GoRoute(path: '/', builder: (context, state) => const HomePage()),
+            GoRoute(
+              path: '/',
+              builder: (context, state) => const HomePage(),
+            ),
           ],
         ),
-        
         StatefulShellBranch(
           routes: [
             GoRoute(
